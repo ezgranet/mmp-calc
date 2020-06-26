@@ -1,4 +1,4 @@
-## <img src="https://github.com/ezgranet/mmp-calc/blob/master/ballot-logo.png" alt="image of  ballot box" width="50"> &nbsp; mmp-calc
+# <img src="https://github.com/ezgranet/mmp-calc/blob/master/ballot-logo.png" alt="image of  ballot box" width="50"> &nbsp; mmp-calc
   
   
 Calculate MMP! 
@@ -8,11 +8,11 @@ Calculate MMP!
 
 `mmp-calc` allows a user to enter the number of seats won in single-member constituencies, and then to calculate the allocation of proportional seats using either of the most frequently used electoral quotas: d'Hondt (as in eg Scotland) or St-Laguë (as in eg New Zealand).  There is no limit to the amount of parties or seats which can be calculated, other than the processing power of the machine using the script.  
 
-# Installation and dependencies
+## Installation and dependencies
 
 
 
-# Example use
+## Example use
 
 As a demonstration of how to use `mmp-calc`, we will calculate the regional (proportional) seats for the 'Highlands and Islands' region of the Scotland in the 2016 Scottish elections.  The vote and seat data used in this example come from the official House of Commons Library Briefing on the results of the election, [which can be accessed by clicking on this link](https://commonslibrary.parliament.uk/research-briefings/cbp-7599/?doing_wp_cron=1593138584.9657280445098876953125).   
 
