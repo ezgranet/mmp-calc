@@ -33,6 +33,6 @@ With these data in place, we can now use the script to calculate the 7 regional 
 Then, simply respond to the prompts given by the script.  In our case, our input file is `sample-data.xlsx` (and is in the same directory as the script), so we type that when asked for our file path.  We want to use d'Hondt, so we type `dh` when asked for the system.  We need to calculate 7 seats, so we type `7` when asked how many seats we want to calculate.  We want our output in Excel format, so we request the file `hi-output` with the extension `XLSX`, and we want that file in the same directory as our input, so we leave the `File Path` question blank.  All of these steps are shown in the image below:
 
 
-<img src="https://github.com/ezgranet/mmp-calc/blob/master/sample-use.png" alt="please see the paragraph above for the text of this image" width="300">
+<img src="https://github.com/ezgranet/mmp-calc/blob/master/sample-use.png" alt="please see the paragraph above for the text of this image" width="750">
 
 
