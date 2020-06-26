@@ -124,7 +124,7 @@ while (shouldStop):
                 alphabetChecker = 0
                 #resets count in the event that you go more than 26
             alphabetTrack = 0
-    if q > ((int(g) * 2)+4):
+    if q > ((int(g) * 2)+2):
         shouldStop = False
         #breaks the loop after the correct number of iterations
 
