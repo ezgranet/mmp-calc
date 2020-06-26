@@ -1,5 +1,4 @@
-# <img src="https://github.com/ezgranet/mmp-calc/blob/master/ballot-logo.png" alt="image of  ballot box" width="40">
-  mmp-calc
+## <img src="https://github.com/ezgranet/mmp-calc/blob/master/ballot-logo.png" alt="image of  ballot box" width="50"> &nbsp; mmp-calc
   
   
 Calculate MMP! 
