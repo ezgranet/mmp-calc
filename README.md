@@ -28,5 +28,7 @@ Now, using those seat numbers and the totals for party votes, we can use `mmp-ca
 
 The first row is given over to explanatory headers, and is ignored by `mmp-calc`.  Input in `mmp-calc` **must** follow the format used in the image below.  **Column 1 should include the names of parties.  Column 2 should include the number of seats already won by each party.  Column 3 should include the relevant number of votes used for calculating the proportional tier of seats.** 
 
+With these data in place, we can now use the script to calculate the 7 regional seats! The easiest way to do this is to place `mmp-calc.py` in the directory containing your Excel spreadsheet/CSV file, and then `cd` into that directory.  Once that is done, type `python3 mmp-calc.py` into your terminal.
 
+Then, simply respond to the prompts given by the script.  In our case, our input file is `sample-data.xlsx` (and is in the same directory as the script), so we type that when asked for our file path.  We want to use d'Hondt, so we type `dh` when asked for the system.  We need to calculate 7 seats, so we type `7` when asked how many seats we want to calculate.  We want our output in Excel format, so we request the file `hi-output` with the extension `XLSX`, and we want that file in the same directory as our input, so we leave the `File Path` question blank.  All of these steps are shown in the image below:
 
