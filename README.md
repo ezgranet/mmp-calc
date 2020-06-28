@@ -14,7 +14,7 @@ Calculate MMP!
 
 `pip`
 
-`openpyxl` (to install use `pip install openpyxl')
+`openpyxl` (to install use `pip install openpyxl`)
 
 
 ## Example use
