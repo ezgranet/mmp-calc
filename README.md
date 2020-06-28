@@ -18,7 +18,7 @@ As a demonstration of how to use `mmp-calc`, we will calculate the regional (pro
 
 In Scottish parliament elections, each region proportionally allocates 7 seats on the basis of the 'party' vote in that region, taking into account seats already won in the single-member plurality constituency seats (of which there are 8 in the Highlands and Islands region).   This is calculated using the d'Hondt formula of <img src="https://github.com/ezgranet/mmp-calc/blob/master/dhondt.png" alt="v/(2s+1)" width="50">.  There are no overhang or compensatory seats.
 
-In the 2016 election, the Scottish National Party (SNP) won 6 of the 8 constituency seats in the Highlands and Islands region, while the remaining two were won by the Liberal Democrats (LD).  The remaining parties—the Conservatives (CON), Labour (LAB), the Greens (GRN) and the UK Independence Party (UKIP)—therefore won zero constituency seats.  
+In the 2016 election, the Scottish National Party (SNP) won 6 of the 8 constituency seats in the Highlands and Islands region, while the remaining two were won by the Liberal Democrats (LD).  The remaining parties—the Conservatives (CON), Labour (LAB), the Scottish Greens (GRN) and the UK Independence Party (UKIP)—therefore won zero constituency seats.  
 
 
 Now, using those seat numbers and the totals for party votes, we can use `mmp-calc` to determine how to allocate the seven regional seats.  The image below shows how you should format data in the script (using either an Excel spreadsheet or a CSV file), and is taken from the included file `sample-data.xlsx` (those with accessibility needs should open that file for the text of the data).  
@@ -41,6 +41,6 @@ Now when we open the file `hi-output.xlsx` (included in the repository), we see 
 <img src="https://github.com/ezgranet/mmp-calc/blob/master/output.png" alt="please see the spreadsheet for the text of this image" width="750">
 
 
-
+As we can see, the SNP gained one regional seat, the Conservatives gained three, Labour gained two, and the Scottish Greens one.  The Lib Dems and UKIP gained none.  This, of course, is precisely what happened in real life! 
 
 
