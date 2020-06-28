@@ -36,9 +36,11 @@ Then, simply respond to the prompts given by the script.  In our case, our input
 <img src="https://github.com/ezgranet/mmp-calc/blob/master/sample-use.png" alt="please see the paragraph above for the text of this image" width="750">
 
 
-Now when we open the file `hi-output.xlsx` (included in the repository), we see the following results (those with accessibility needs should open the spreadsheet for the text of the image below):
+Now when we open the file `hi-output.xlsx` (included in the repository), we see the following results.  Please note that the image below was made by freezing the first two columns; `hi-output.xlsx` includes the quotas and seat allocations for every d'Hondt count.
 
-<img src="https://github.com/ezgranet/mmp-calc/blob/master/output.png" alt="please see the paragraph above for the text of this image" width="750">
+<img src="https://github.com/ezgranet/mmp-calc/blob/master/output.png" alt="please see the spreadsheet for the text of this image" width="750">
+
+
 
 
 
