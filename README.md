@@ -48,7 +48,7 @@ Now when we open the file `hi-output.xlsx` (included in the repository), we see 
 
 As we can see, the SNP gained one regional seat, the Conservatives gained three, Labour gained two, and the Scottish Greens one.  The Lib Dems and UKIP gained none.  This, of course, is precisely what happened in real life! 
 
-##Credits and Licensing
+## Credits and Licensing
 
 This script was co-created by Elijah Granet (github.com/ezgranet) and Isaiah Granet (github.com/ing), who are brothers.
 
