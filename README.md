@@ -4,7 +4,7 @@
 Calculate MMP! 
 
 
-`mmp-calc` is a free-and-open-source (MIT Licence) Python script for calculating the results of an election conducted using a form of mixed-member proportional (MMP) representation (also known as the Additional Member System in the UK).  
+`mmp-calc` is a free-and-open-source Python script for calculating the results of an election conducted using a form of mixed-member proportional (MMP) representation (also known as the Additional Member System in the UK).  
 
 `mmp-calc` allows a user to enter the number of seats won in single-member constituencies, and then to calculate the allocation of proportional seats using either of the most frequently used electoral quotas: d'Hondt (as in eg Scotland) or St-Laguë (as in eg New Zealand).  There is no limit to the amount of parties or seats which can be calculated, other than the processing power of the machine using the script.  
 
@@ -48,4 +48,11 @@ Now when we open the file `hi-output.xlsx` (included in the repository), we see 
 
 As we can see, the SNP gained one regional seat, the Conservatives gained three, Labour gained two, and the Scottish Greens one.  The Lib Dems and UKIP gained none.  This, of course, is precisely what happened in real life! 
 
+##Credits and Licensing
+
+This script was co-created by Elijah Granet (github.com/ezgranet) and Isaiah Granet (github.com/ing), who are brothers.
+
+The icon for the repo is the character `Unicode: U+1F5F3 BALLOT BOX WITH BALLOT` in the libre [`Symbol`](https://github.com/gearit/ttf-symbola) typeface by George Douros.
+
+This software is licensed under the very permissive MIT Licence and may be used for any purpose.  Contributions and suggestions are gratefully welcomed.
 
