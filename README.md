@@ -21,7 +21,7 @@ In Scottish parliament elections, each region proportionally allocates 7 seats o
 In the 2016 election, the Scottish National Party (SNP) won 6 of the 8 constituency seats in the Highlands and Islands region, while the remaining two were won by the Liberal Democrats (LD).  The remaining parties—the Conservatives (CON), Labour (LAB), the Scottish Greens (GRN) and the UK Independence Party (UKIP)—therefore won zero constituency seats.  
 
 
-Now, using those seat numbers and the totals for party votes, we can use `mmp-calc` to determine how to allocate the seven regional seats.  The image below shows how you should format data in the script (using either an Excel spreadsheet or a CSV file), and is taken from the included file `sample-data.xlsx` (those with accessibility needs should open that file for the text of the data).  
+Now, using those seat numbers and the totals for party votes, we can use `mmp-calc` to determine how to allocate the seven regional seats.  The image below shows how you should format data in the script (using an Excel spreadsheet), and is taken from the included file `sample-data.xlsx` (those with accessibility needs should open that file for the text of the data).  
 
 <img src="https://github.com/ezgranet/mmp-calc/blob/master/input.png" alt="please see sample-data.xlsx for the text of this table" width="300">
 
