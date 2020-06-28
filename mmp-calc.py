@@ -141,10 +141,9 @@ while (shouldStop):
 #EXPORT FUNCTIONS
 #BELOW
 
-fileExport = raw_input("File Save Name?")
+fileExport = raw_input("File Save Name? (DO NOT INCLUDE .XLSX or .CSV)")
 fileSaveType = raw_input(
-    "What type of file would you like to save as (CSV, XLSX. Do not include a period in the extension name.)?")
-fileExportTwo = raw_input("Save file via System Dialogue (optimized for mac), or file path? \n Type 'FILE' or 'SYS' ")
+    "What type of file would you like to save as (CSV, XLSX. Do not include a period in the extension name!)?")
 fileExportTwo = raw_input("File Path?")
 workbook.save(fileExportTwo + fileExport + "." + fileSaveType)
 
@@ -166,7 +165,7 @@ workbook.save(fileExportTwo + fileExport + "." + fileSaveType)
 ########THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRESS #OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 #FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 #AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-#LIABILITY, WHETHER IN AN ACTION OF CONTRACT,, TORT OR OTHERWISE, ARISING FROM,
+#LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 #OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 #SOFTWARE.
 
