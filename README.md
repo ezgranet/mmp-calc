@@ -52,7 +52,7 @@ As we can see, the SNP gained one regional seat, the Conservatives gained three,
 
 This script was co-created by [Elijah Granet](github.com/ezgranet) and [Isaiah Granet](github.com/ing), who are brothers.
 
-The icon for the repo is the character `Unicode: U+1F5F3 BALLOT BOX WITH BALLOT` in the libre [`Symbol`](https://github.com/gearit/ttf-symbola) typeface by George Douros.
+The icon for the repo is the character `Unicode: U+1F5F3 BALLOT BOX WITH BALLOT` in the libre [`Symbola`](https://github.com/gearit/ttf-symbola) typeface by George Douros.
 
 This software is licensed under the very permissive MIT Licence and may be used for any purpose.  Contributions and suggestions are gratefully welcomed.
 
