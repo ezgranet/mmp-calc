@@ -13,7 +13,7 @@
 
 from openpyxl import Workbook, load_workbook
 from pip._vendor.distlib.compat import raw_input
-
+import csv
 #selecting input
 
 
@@ -25,7 +25,7 @@ elif formula in ["SL", "sl", " SL", "sl ", " sl"]:
     formula = 2
 g = raw_input("Please enter the number of Seats: ")
 
-#here iterations refers to the number of quota and seat calcuations...e.g.
+#here iterations refers to the number of quota and seat calculations...e.g.
 # entering "500" will return 250 columns of seats and 250 columns of quotas
 #in order to compensate for user input, the loop iterations are doubled
 
