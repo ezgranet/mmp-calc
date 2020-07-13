@@ -33,7 +33,7 @@ Now, using those seat numbers and the totals for party votes, we can use `mmp-ca
 <img src="https://github.com/ezgranet/mmp-calc/blob/master/images/input.png" alt="please see sample-data.xlsx for the text of this table" width="300">
 
 
-The first row is given over to explanatory headers, and is ignored by `mmp-calc`.  Input in `mmp-calc` **must** follow the format used in the image below.  **Column 1 should include the names of parties.  Column 2 should include the number of seats already won by each party.  Column 3 should include the relevant number of votes used for calculating the proportional tier of seats.** 
+The first row is given over to explanatory headers, and is ignored by `mmp-calc`.  Input in `mmp-calc` **must** follow the format used in the image above.  **Column 1 should include the names of parties.  Column 2 should include the number of seats already won by each party.  Column 3 should include the relevant number of votes used for calculating the proportional tier of seats.** 
 
 With these data in place, we can now use the script to calculate the 7 regional seats! The easiest way to do this is to place `mmp-calc.py` in the directory containing your Excel spreadsheet/CSV file, and then `cd` into that directory.  Once that is done, type `python3 mmp-calc.py` into your terminal.
 
