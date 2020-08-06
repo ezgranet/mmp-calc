@@ -1,7 +1,7 @@
 # <img src="https://github.com/ezgranet/mmp-calc/blob/master/images/ballot-logo.png" alt="image of  ballot box" width="50"> &nbsp; mmp-calc
   
   
-Calculate MMP! 
+Calculate MMP with an MMP calculator!
 
 
 `mmp-calc` is a free-and-open-source `Python` script for calculating the results of an election conducted using a form of mixed-member proportional (MMP) representation (also known as the Additional Member System in the UK).  [Clicking on this link will take you directly to the latest release of the script.](https://raw.githubusercontent.com/ezgranet/mmp-calc/master/mmp-calc.py)
