@@ -8,8 +8,7 @@ Calculate MMP with an MMP calculator!
 
 `mmp-calc` allows a user to enter the number of seats won in single-member constituencies, and then to calculate the allocation of proportional seats using either of the most frequently used electoral quotas: d'Hondt (as in eg Scotland) or St-Laguë (as in eg New Zealand).  There is no limit to the amount of parties or seats which can be calculated, other than the processing power of the machine using the script.
 
-At the moment, only the `Python` script is of release quality.  However, a `macOS` GUI is in the early stages of development (and can be seen in the repo); usage is not yet recommended.  A `Windows` app is planned.  Future releases of the script will also include the ability to import `csv` in addition to `xlsx` files.  Suggestions and contributions to development are eagerly welcomed.
-
+The script has a `GUI` for `macOS` which can be found on the Releases page! A `Windows` version is forthcoming shortly.
 ## Requirements
 
 `python3`
