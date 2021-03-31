@@ -4,28 +4,13 @@
 Calculate MMP with an MMP calculator!
 
 
-`mmp-calc` is a free-and-open-source `Python` script for calculating the results of an election conducted using a form of mixed-member proportional (MMP) representation (also known as the Additional Member System in the UK).  [Clicking on this link will take you directly to the latest release of the script.](https://raw.githubusercontent.com/ezgranet/mmp-calc/master/mmp-calc.py)
+`mmp-calc` is a free-and-open-source app for calculating the results of an election conducted using a form of mixed-member proportional (MMP) representation (also known as the Additional Member System in the UK). 
 
 `mmp-calc` allows a user to enter the number of seats won in single-member constituencies, and then to calculate the allocation of proportional seats using either of the most frequently used electoral quotas: d'Hondt (as in eg Scotland) or St-Laguë (as in eg New Zealand).  There is no limit to the amount of parties or seats which can be calculated, other than the processing power of the machine using the script.
 
-The script has a `GUI` for `macOS` which can be found on the Releases page! A `Windows` version is forthcoming shortly.
-## Requirements (for the script, not the GUI)
-
-`python3`
-
-`pip`
-
-`openpyxl` (to install use `pip install openpyxl`)
-
+The script has a `GUI` for `macOS` and `Windows` which can be found on the Releases page!   This is the *easiest* way to use the app!  You can also run  the script in `Python` directly, but that is harder.
 
 ## Example use
-
-# Easiest way
-
-Just use the GUI!
-
-# If you want to use the script
-
 
 
 As a demonstration of how to use `mmp-calc`, we will calculate the regional (proportional) seats for the Highlands and Islands region in the 2016 Scottish Parliament elections.  The vote and seat data used in this example come from the official House of Commons Library Briefing on the results of the election, [which can be accessed by clicking on this link](https://commonslibrary.parliament.uk/research-briefings/cbp-7599/?doing_wp_cron=1593138584.9657280445098876953125).   
@@ -42,7 +27,7 @@ Now, using those seat numbers and the totals for party votes, we can use `mmp-ca
 
 The first row is given over to explanatory headers, and is ignored by `mmp-calc`.  Input in `mmp-calc` **must** follow the format used in the image above.  **Column 1 should include the names of parties.  Column 2 should include the number of seats already won by each party.  Column 3 should include the relevant number of votes used for calculating the proportional tier of seats.** 
 
-With these data in place, we can now use the script to calculate the 7 regional seats! The easiest way to do this is to place `mmp-calc.py` in the directory containing your Excel spreadsheet/CSV file, and then `cd` into that directory.  Once that is done, type `python3 mmp-calc.py` into your terminal.
+With these data in place, we can now use the script to calculate the 7 regional seats! Open the GUI and select the excel file!
 
 Then, simply respond to the prompts given by the script.  In our case, our input file is `sample-data.xlsx` (and is in the same directory as the script), so we type that when asked for our file path.  We want to use d'Hondt, so we type `dh` when asked for the system.  We need to calculate 7 seats, so we type `7` when asked how many seats we want to calculate.  We want our output in Excel format, so we request the file `hi-output` with the extension `XLSX`, and we want that file in the same directory as our input, so we leave the `File Path` question blank.  All of these steps are shown in the image below:
 
