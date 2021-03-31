@@ -29,10 +29,7 @@ The first row is given over to explanatory headers, and is ignored by `mmp-calc`
 
 With these data in place, we can now use the script to calculate the 7 regional seats! Open the GUI and select the excel file!
 
-Then, simply respond to the prompts given by the script.  In our case, our input file is `sample-data.xlsx` (and is in the same directory as the script), so we type that when asked for our file path.  We want to use d'Hondt, so we type `dh` when asked for the system.  We need to calculate 7 seats, so we type `7` when asked how many seats we want to calculate.  We want our output in Excel format, so we request the file `hi-output` with the extension `XLSX`, and we want that file in the same directory as our input, so we leave the `File Path` question blank.  All of these steps are shown in the image below:
-
-
-<img src="https://github.com/ezgranet/mmp-calc/blob/master/images/sample-use.png" alt="please see the paragraph above for the text of this image" width="750">
+Then, simply respond to the prompts given by the GUI.  In our case, our input file is `sample-data.xlsx` (and is in the same directory as the script), so we type that when asked for our file path.  We want to use d'Hondt, so we type `dh` when asked for the system.  We need to calculate 7 seats, so we type `7` when asked how many seats we want to calculate.  We want our output in Excel format, so we request the file `hi-output` with the extension `XLSX`, and we want that file in the same directory as our input, so we leave the `File Path` question blank.  
 
 
 Now when we open the file `hi-output.xlsx` (included in the repository), we see the following results.  Please note that the image below was made by freezing the first two columns; `hi-output.xlsx` includes the quotas and seat allocations for every d'Hondt count.
