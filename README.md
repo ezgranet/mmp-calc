@@ -20,6 +20,14 @@ The script has a `GUI` for `macOS` which can be found on the Releases page! A `W
 
 ## Example use
 
+# Easiest way
+
+Just use the GUI!
+
+# If you want to use the script
+
+
+
 As a demonstration of how to use `mmp-calc`, we will calculate the regional (proportional) seats for the Highlands and Islands region in the 2016 Scottish Parliament elections.  The vote and seat data used in this example come from the official House of Commons Library Briefing on the results of the election, [which can be accessed by clicking on this link](https://commonslibrary.parliament.uk/research-briefings/cbp-7599/?doing_wp_cron=1593138584.9657280445098876953125).   
 
 In Scottish parliament elections, each region proportionally allocates 7 seats on the basis of the 'party' vote in that region, taking into account seats already won in the single-member plurality constituency seats (of which there are 8 in the Highlands and Islands region).   This is calculated using the d'Hondt formula of <img src="https://github.com/ezgranet/mmp-calc/blob/master/images/dhondt.png" alt="v/(2s+1)" width="50">.  There are no overhang or compensatory seats.
