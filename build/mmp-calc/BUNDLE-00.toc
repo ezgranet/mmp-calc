@@ -1,0 +1,3 @@
+([('mmp-calc',
+   '/Users/ezgranet/Documents/GitHub/mmp-calc/mmp-calc/dist/mmp-calc',
+   'EXECUTABLE')],)
