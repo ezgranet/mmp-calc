@@ -5,12 +5,12 @@ from typing import List, Dict
 
 def calculate_seats(df: pd.DataFrame, formula_type: str, total_seats: int) -> pd.DataFrame:
     """
-    Calculate seat allocation using D'Hondt or St. Lague method
+    Calculate MMP seat allocation using D'Hondt or St. Lague method
     
     Args:
-        df (pd.DataFrame): DataFrame with party and vote information
+        df (pd.DataFrame): DataFrame with party, FPTP seats, and vote information
         formula_type (str): 'DH' for D'Hondt or 'SL' for St. Lague
-        total_seats (int): Total number of seats to allocate
+        total_seats (int): Total number of list seats to allocate
     
     Returns:
         pd.DataFrame: Updated DataFrame with seat allocations
@@ -22,7 +22,8 @@ def calculate_seats(df: pd.DataFrame, formula_type: str, total_seats: int) -> pd
     results_df = df.copy()
     
     # Initialize columns
-    results_df['Seats'] = [0] * len(results_df)
+    results_df['List Seats'] = [0] * len(results_df)
+    results_df['Total Seats'] = results_df['FPTP Seats'].copy()
     results_df['Quota'] = [0.0] * len(results_df)
     
     # Convert votes to float
@@ -31,20 +32,22 @@ def calculate_seats(df: pd.DataFrame, formula_type: str, total_seats: int) -> pd
     # Track initial votes
     initial_votes = results_df['Votes'].copy()
     
-    # Seat allocation loop
+    # Seat allocation loop for list seats
     for _ in range(total_seats):
-        # Calculate quota for each party
+        # Calculate quota for each party based on current total seats
         for idx in results_df.index:
-            results_df.at[idx, 'Quota'] = float(initial_votes[idx]) / (formula_multiplier * float(results_df.at[idx, 'Seats']) + 1)
+            results_df.at[idx, 'Quota'] = float(initial_votes[idx]) / (formula_multiplier * float(results_df.at[idx, 'Total Seats']) + 1)
         
         # Find party with highest quota
         max_quota_idx = results_df['Quota'].idxmax()
         
-        # Allocate a seat to that party
-        results_df.at[max_quota_idx, 'Seats'] += 1
+        # Allocate a list seat to that party
+        results_df.at[max_quota_idx, 'List Seats'] += 1
+        results_df.at[max_quota_idx, 'Total Seats'] += 1
     
     # Convert seats to integers
-    results_df['Seats'] = results_df['Seats'].apply(int)
+    results_df['List Seats'] = results_df['List Seats'].apply(int)
+    results_df['Total Seats'] = results_df['Total Seats'].apply(int)
     
     return results_df
 
@@ -55,7 +58,13 @@ def main():
         layout="wide"
     )
     
-    st.title('MMP Seat Allocation Calculator')
+    st.title('Mixed Member Proportional (MMP) Seat Calculator')
+    st.markdown("""
+    This calculator determines list seat allocation in an MMP system based on:
+    1. Party vote counts
+    2. FPTP (constituency) seats already won
+    3. Number of additional list seats to allocate
+    """)
     
     # Sidebar for configuration
     st.sidebar.header('Calculator Settings')
@@ -68,13 +77,14 @@ def main():
     )
     formula_code = 'DH' if formula == 'D\'Hondt (DH)' else 'SL'
     
-    # Total seats input
-    total_seats = st.sidebar.number_input(
-        'Total Number of Seats', 
+    # Total list seats input
+    total_list_seats = st.sidebar.number_input(
+        'Number of List Seats to Allocate', 
         min_value=1, 
         max_value=1000, 
         value=10,
-        step=1
+        step=1,
+        help="The number of additional proportional (list) seats to be allocated"
     )
     
     # Data input methods
@@ -100,17 +110,27 @@ def main():
         input_data: List[Dict] = []
         
         # Create columns for party inputs
-        col1, col2 = st.columns(2)
+        col1, col2, col3 = st.columns(3)
         
         with col1:
             st.subheader("Party Names")
         with col2:
-            st.subheader("Vote Counts")
+            st.subheader("FPTP Seats Won")
+        with col3:
+            st.subheader("Party Votes")
             
         for i in range(num_parties):
             with col1:
                 party = st.text_input(f'Party {i+1}', key=f'party_{i}')
             with col2:
+                fptp_seats = st.number_input(
+                    f'FPTP Seats {i+1}', 
+                    min_value=0, 
+                    value=0, 
+                    step=1,
+                    key=f'fptp_{i}'
+                )
+            with col3:
                 votes = st.number_input(
                     f'Votes {i+1}', 
                     min_value=0, 
@@ -119,15 +139,19 @@ def main():
                     key=f'votes_{i}'
                 )
             
-            if party and votes > 0:
-                input_data.append({'Party': party, 'Votes': votes})
+            if party and votes >= 0:  # Allow 0 FPTP seats
+                input_data.append({
+                    'Party': party, 
+                    'FPTP Seats': fptp_seats,
+                    'Votes': votes
+                })
         
         if input_data:
             df = pd.DataFrame(input_data)
     
     else:
         # File upload
-        st.info("Upload a file with two columns: 'Party' and 'Votes'")
+        st.info("Upload a file with three columns: 'Party', 'FPTP Seats', and 'Votes'")
         uploaded_file = st.file_uploader(
             'Upload Excel or CSV file', 
             type=['xlsx', 'csv']
@@ -141,11 +165,11 @@ def main():
                     df = pd.read_excel(uploaded_file)
                 
                 # Ensure correct column names
-                if len(df.columns) != 2:
-                    st.error("File must have exactly two columns: 'Party' and 'Votes'")
+                if len(df.columns) != 3:
+                    st.error("File must have exactly three columns: 'Party', 'FPTP Seats', and 'Votes'")
                     return
                     
-                df.columns = ['Party', 'Votes']
+                df.columns = ['Party', 'FPTP Seats', 'Votes']
                 
             except Exception as e:
                 st.error(f"Error reading file: {e}")
@@ -156,17 +180,21 @@ def main():
     
     # Validate input
     if df is None or df.empty:
-        st.warning('Please enter party and vote data')
+        st.warning('Please enter party data')
         return
     
     # Check for valid votes
-    if (df['Votes'] <= 0).any():
-        st.error('All vote counts must be positive numbers')
+    if (df['Votes'] < 0).any():
+        st.error('All vote counts must be non-negative numbers')
+        return
+        
+    if (df['FPTP Seats'] < 0).any():
+        st.error('All FPTP seat counts must be non-negative numbers')
         return
     
     # Perform seat allocation
     try:
-        results_df = calculate_seats(df, formula_code, total_seats)
+        results_df = calculate_seats(df, formula_code, total_list_seats)
         
         # Display results
         st.header('Seat Allocation Results')
@@ -174,17 +202,19 @@ def main():
         # Format results for display
         display_df = results_df.copy()
         display_df['Votes'] = display_df['Votes'].apply(lambda x: f"{int(x):,}")
-        display_df['Quota'] = display_df['Quota'].apply(lambda x: f"{x:.2f}")
         
         # Calculate percentages
         total_votes = results_df['Votes'].sum()
-        total_seats = results_df['Seats'].sum()
+        total_final_seats = results_df['Total Seats'].sum()
         
-        display_df['Vote %'] = results_df['Votes'].apply(lambda x: f"{(x/total_votes)*100:.1f}%")
-        display_df['Seat %'] = results_df['Seats'].apply(lambda x: f"{(x/total_seats)*100:.1f}%")
+        display_df['Vote %'] = results_df['Votes'].apply(lambda x: f"{(float(x.replace(',', ''))/total_votes)*100:.1f}%")
+        display_df['Seat %'] = results_df['Total Seats'].apply(lambda x: f"{(x/total_final_seats)*100:.1f}%")
         
         # Reorder columns
-        display_df = display_df[['Party', 'Votes', 'Vote %', 'Seats', 'Seat %', 'Quota']]
+        display_df = display_df[[
+            'Party', 'Votes', 'Vote %', 'FPTP Seats', 
+            'List Seats', 'Total Seats', 'Seat %'
+        ]]
         
         st.dataframe(display_df, use_container_width=True)
         
@@ -192,11 +222,12 @@ def main():
         st.header('Seat Distribution')
         chart_df = pd.DataFrame({
             'Party': results_df['Party'],
-            'Seats': results_df['Seats'],
-            'Votes %': results_df['Votes'].apply(lambda x: (x/total_votes)*100)
+            'Total Seats': results_df['Total Seats'],
+            'FPTP Seats': results_df['FPTP Seats'],
+            'List Seats': results_df['List Seats']
         })
         
-        st.bar_chart(chart_df.set_index('Party')[['Seats']])
+        st.bar_chart(chart_df.set_index('Party')[['Total Seats']])
         
         # Export options
         st.sidebar.header('Export Results')
