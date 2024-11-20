@@ -1,7 +1,6 @@
 import streamlit as st
 import pandas as pd
-import numpy as np
-import openpyxl
+import io
 from typing import List, Dict
 
 def calculate_seats(df: pd.DataFrame, formula_type: str, total_seats: int) -> pd.DataFrame:
@@ -22,31 +21,40 @@ def calculate_seats(df: pd.DataFrame, formula_type: str, total_seats: int) -> pd
     # Create a copy of the dataframe to work with
     results_df = df.copy()
     
-    # Convert votes to float64 explicitly
-    results_df['Votes'] = results_df['Votes'].astype('float64')
+    # Initialize columns
+    results_df['Seats'] = [0] * len(results_df)
+    results_df['Quota'] = [0.0] * len(results_df)
     
-    # Initialize seat columns with integers
-    results_df['Seats'] = 0
+    # Convert votes to float
+    results_df['Votes'] = results_df['Votes'].apply(float)
     
     # Track initial votes
     initial_votes = results_df['Votes'].copy()
     
     # Seat allocation loop
     for _ in range(total_seats):
-        # Calculate quota for each party using float64
-        results_df['Quota'] = initial_votes / (formula_multiplier * results_df['Seats'].astype('float64') + 1)
+        # Calculate quota for each party
+        for idx in results_df.index:
+            results_df.at[idx, 'Quota'] = float(initial_votes[idx]) / (formula_multiplier * float(results_df.at[idx, 'Seats']) + 1)
         
         # Find party with highest quota
-        max_quota_index = results_df['Quota'].idxmax()
+        max_quota_idx = results_df['Quota'].idxmax()
         
         # Allocate a seat to that party
-        results_df.loc[max_quota_index, 'Seats'] += 1
+        results_df.at[max_quota_idx, 'Seats'] += 1
     
-    # Ensure seats are integers
-    results_df['Seats'] = results_df['Seats'].astype('int64')
+    # Convert seats to integers
+    results_df['Seats'] = results_df['Seats'].apply(int)
+    
     return results_df
 
 def main():
+    st.set_page_config(
+        page_title="MMP Seat Calculator",
+        page_icon="🗳️",
+        layout="wide"
+    )
+    
     st.title('MMP Seat Allocation Calculator')
     
     # Sidebar for configuration
@@ -90,25 +98,36 @@ def main():
         
         # Create input dataframe
         input_data: List[Dict] = []
+        
+        # Create columns for party inputs
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            st.subheader("Party Names")
+        with col2:
+            st.subheader("Vote Counts")
+            
         for i in range(num_parties):
-            cols = st.columns(2)
-            with cols[0]:
-                party = st.text_input(f'Party {i+1} Name', key=f'party_{i}')
-            with cols[1]:
-                votes = st.number_input(f'Party {i+1} Votes', 
-                                      min_value=0.0, 
-                                      value=0.0, 
-                                      step=1.0,
-                                      key=f'votes_{i}')
+            with col1:
+                party = st.text_input(f'Party {i+1}', key=f'party_{i}')
+            with col2:
+                votes = st.number_input(
+                    f'Votes {i+1}', 
+                    min_value=0, 
+                    value=0, 
+                    step=1,
+                    key=f'votes_{i}'
+                )
             
             if party and votes > 0:
-                input_data.append({'Party': party, 'Votes': float(votes)})
+                input_data.append({'Party': party, 'Votes': votes})
         
         if input_data:
             df = pd.DataFrame(input_data)
     
     else:
         # File upload
+        st.info("Upload a file with two columns: 'Party' and 'Votes'")
         uploaded_file = st.file_uploader(
             'Upload Excel or CSV file', 
             type=['xlsx', 'csv']
@@ -121,9 +140,12 @@ def main():
                 else:
                     df = pd.read_excel(uploaded_file)
                 
-                # Ensure correct column names and types
+                # Ensure correct column names
+                if len(df.columns) != 2:
+                    st.error("File must have exactly two columns: 'Party' and 'Votes'")
+                    return
+                    
                 df.columns = ['Party', 'Votes']
-                df['Votes'] = df['Votes'].astype('float64')
                 
             except Exception as e:
                 st.error(f"Error reading file: {e}")
@@ -151,14 +173,30 @@ def main():
         
         # Format results for display
         display_df = results_df.copy()
-        display_df['Votes'] = display_df['Votes'].map('{:,.0f}'.format)
-        display_df['Quota'] = display_df['Quota'].map('{:,.2f}'.format)
-        st.dataframe(display_df)
+        display_df['Votes'] = display_df['Votes'].apply(lambda x: f"{int(x):,}")
+        display_df['Quota'] = display_df['Quota'].apply(lambda x: f"{x:.2f}")
+        
+        # Calculate percentages
+        total_votes = results_df['Votes'].sum()
+        total_seats = results_df['Seats'].sum()
+        
+        display_df['Vote %'] = results_df['Votes'].apply(lambda x: f"{(x/total_votes)*100:.1f}%")
+        display_df['Seat %'] = results_df['Seats'].apply(lambda x: f"{(x/total_seats)*100:.1f}%")
+        
+        # Reorder columns
+        display_df = display_df[['Party', 'Votes', 'Vote %', 'Seats', 'Seat %', 'Quota']]
+        
+        st.dataframe(display_df, use_container_width=True)
         
         # Visualization
         st.header('Seat Distribution')
-        chart_df = results_df[['Party', 'Seats']].set_index('Party')
-        st.bar_chart(chart_df)
+        chart_df = pd.DataFrame({
+            'Party': results_df['Party'],
+            'Seats': results_df['Seats'],
+            'Votes %': results_df['Votes'].apply(lambda x: (x/total_votes)*100)
+        })
+        
+        st.bar_chart(chart_df.set_index('Party')[['Seats']])
         
         # Export options
         st.sidebar.header('Export Results')
@@ -169,7 +207,7 @@ def main():
         
         if st.sidebar.button('Export Results'):
             if export_format == 'CSV':
-                csv = results_df.to_csv(index=False)
+                csv = display_df.to_csv(index=False)
                 st.download_button(
                     label="Download CSV",
                     data=csv,
@@ -178,8 +216,8 @@ def main():
                 )
             else:
                 buffer = io.BytesIO()
-                with pd.ExcelWriter(buffer) as writer:
-                    results_df.to_excel(writer, index=False)
+                with pd.ExcelWriter(buffer, engine='openpyxl') as writer:
+                    display_df.to_excel(writer, index=False)
                 buffer.seek(0)
                 
                 st.download_button(
